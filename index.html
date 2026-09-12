@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WasteBasket 🗑️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-indigo-950 text-white min-h-screen">
 
+    <nav class="p-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold cursor-pointer" onclick="showPage('home')">🗑️ WasteBasket</h1>
+    </nav>
+
+    <main id="app" class="container mx-auto p-4 text-center">
+        <!-- Home -->
+        <section id="home" class="page mt-20">
+            <div id="mascot" class="text-9xl mb-6">😐</div>
+            <h1 class="text-6xl font-black mb-4">WASTEBASKET</h1>
+            <p class="text-xl mb-8">“The world's most unnecessary AI-powered waste judge.”</p>
+            <button onclick="showPage('analyze')" class="bg-emerald-500 hover:bg-emerald-600 px-8 py-4 rounded-2xl text-xl font-bold transition">GET JUDGED</button>
+        </section>
+
+        <!-- Analyze -->
+        <section id="analyze" class="page hidden max-w-lg mx-auto">
+            <h2 class="text-3xl font-bold mb-6">What did you do?</h2>
+            <input type="file" id="fileInput" class="hidden" onchange="handleImage(event)">
+            <div class="border-4 border-dashed border-indigo-700 p-10 rounded-2xl cursor-pointer hover:border-indigo-500 transition" onclick="document.getElementById('fileInput').click()">
+                Click or Drop to upload waste
+            </div>
+            <div id="preview" class="mt-6 hidden">
+                <img id="imagePreview" class="w-full rounded-lg mb-4">
+                <button id="analyzeBtn" onclick="runAnalysis()" disabled class="w-full bg-slate-500 py-3 rounded-xl font-bold text-lg cursor-not-allowed">AI Loading...</button>
+                <p id="loadingIndicator" class="hidden text-amber-400 font-bold mt-2">🧠 Analyzing...</p>
+            </div>
+        </section>
+
+        <!-- Result -->
+        <section id="result" class="page hidden mt-10">
+            <h2 class="text-4xl font-black mb-8 tracker-tight">AI JUDGMENT</h2>
+            <div class="bg-indigo-900 p-8 rounded-3xl inline-block shadow-2xl border border-indigo-700 max-w-sm">
+                <p id="objectDetected" class="text-3xl font-bold text-emerald-400 mb-4"></p>
+                <p id="judgmentText" class="text-xl italic mb-6"></p>
+                <p id="scoreText" class="text-4xl font-black text-rose-500"></p>
+            </div>
+            <br>
+            <button onclick="showPage('analyze')" class="mt-8 bg-indigo-500 hover:bg-indigo-600 px-8 py-3 rounded-3xl font-bold">Judge another</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
